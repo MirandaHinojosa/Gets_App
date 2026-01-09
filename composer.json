@@ -1,0 +1,6 @@
+{
+  "name": "mirandahinojosa/gets-app-api",
+  "require": {
+    "php": "^8.2"
+  }
+}
