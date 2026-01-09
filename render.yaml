@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: gets-app-api
+    runtime: php
+    repo: https://github.com/MirandaHinojosa/Gets_App
+    branch: master
+    rootDirectory: .
+    buildCommand: "echo 'Build completado'"
+    startCommand: "php -S 0.0.0.0:$PORT"
+    envVars:
+      - key: PHP_VERSION
+        value: "8.2"

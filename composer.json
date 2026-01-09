@@ -1,0 +1,6 @@
+{
+  name mirandahinojosagets-app-api,
+  require {
+    php ^8.2
+  }
+}
