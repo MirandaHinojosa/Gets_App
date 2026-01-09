@@ -20,7 +20,12 @@ while ($row = $result->fetch_assoc()) {
     $jugadores[] = $row;
 }
 
-echo json_encode($jugadores);
+// DEVUELVE EN FORMATO DataResponse
+echo json_encode([
+    "success" => true,
+    "data" => $jugadores,
+    "message" => count($jugadores) . " jugadores encontrados"
+]);
 
 if (isset($stmt)) {
     $stmt->close();
