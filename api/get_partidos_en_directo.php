@@ -14,6 +14,12 @@ $sql = "SELECT p.*,
 
 $partidos = getQueryResults($conn, $sql);
 
-echo json_encode($partidos);
+// DEVUELVE EN FORMATO DataResponse
+echo json_encode([
+    "success" => true,
+    "data" => $partidos,
+    "message" => count($partidos) . " partidos en directo"
+]);
+
 $conn->close();
 ?>
