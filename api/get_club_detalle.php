@@ -15,7 +15,13 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($row = $result->fetch_assoc()) {
-    echo json_encode(["success" => true, "club" => $row]);
+    echo json_encode([
+        "success" => true,
+        "data" => [  
+            "club" => $row
+        ],
+        "message" => null
+    ]);
 } else {
     echo json_encode(["success" => false, "message" => "Club no encontrado"]);
 }
