@@ -10,7 +10,12 @@ if ($competicion_id <= 0) {
 
 // 1. Información de la competición
 $sql = "SELECT * FROM competiciones WHERE id = ?";
-$competicion = getSingleResult($conn, $sql, [$competicion_id], "i");
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $competicion_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$competicion = $result->fetch_assoc();
+$stmt->close();
 
 if (!$competicion) {
     echo json_encode(["success" => false, "message" => "Competición no encontrada"]);
@@ -25,21 +30,35 @@ $sql_clasificacion = "SELECT clf.*, e.nombre as equipo_nombre, c.nombre as club_
                       WHERE clf.competicion_id = ?
                       ORDER BY clf.posicion";
 
-$clasificacion = getResultsWithParams($conn, $sql_clasificacion, [$competicion_id], "i");
+$stmt = $conn->prepare($sql_clasificacion);
+$stmt->bind_param("i", $competicion_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$clasificacion = [];
+while ($row = $result->fetch_assoc()) {
+    $clasificacion[] = $row;
+}
+$stmt->close();
 
-// 3. Partidos
+// 3. Partidos (opcional, por si los necesitas)
 $sql_partidos = "SELECT p.*,
                  el.nombre as equipo_local_nombre,
-                 ev.nombre as equipo_visitante_nombre,
-                 c.nombre as competicion_nombre
+                 ev.nombre as equipo_visitante_nombre
                  FROM partidos p
                  JOIN equipos el ON p.equipo_local_id = el.id
                  JOIN equipos ev ON p.equipo_visitante_id = ev.id
-                 JOIN competiciones c ON p.competicion_id = c.id
                  WHERE p.competicion_id = ?
                  ORDER BY p.fecha_hora ASC";
 
-$partidos = getResultsWithParams($conn, $sql_partidos, [$competicion_id], "i");
+$stmt = $conn->prepare($sql_partidos);
+$stmt->bind_param("i", $competicion_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$partidos = [];
+while ($row = $result->fetch_assoc()) {
+    $partidos[] = $row;
+}
+$stmt->close();
 
 echo json_encode([
     "success" => true,
@@ -51,4 +70,8 @@ echo json_encode([
 ]);
 
 $conn->close();
+?>
+
+$conn->close();
+
 ?>
