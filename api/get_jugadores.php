@@ -20,7 +20,7 @@ while ($row = $result->fetch_assoc()) {
     $jugadores[] = $row;
 }
 
-// DEVUELVE EN FORMATO DataResponse
+//devolvemos DataResponse
 echo json_encode([
     "success" => true,
     "data" => $jugadores,
@@ -32,3 +32,4 @@ if (isset($stmt)) {
 }
 $conn->close();
 ?>
+
