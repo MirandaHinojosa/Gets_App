@@ -14,7 +14,7 @@ $sql = "SELECT p.*,
 
 $partidos = getQueryResults($conn, $sql);
 
-// DEVUELVE EN FORMATO DataResponse
+//devolvemos en formato DataResponse
 echo json_encode([
     "success" => true,
     "data" => $partidos,
@@ -23,3 +23,4 @@ echo json_encode([
 
 $conn->close();
 ?>
+
