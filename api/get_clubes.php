@@ -4,7 +4,7 @@ require_once 'api_config.php';
 $sql = "SELECT * FROM clubes ORDER BY nombre";
 $clubes = getQueryResults($conn, $sql);
 
-// Devolver en formato DataResponse
+//Devolver en formato DataResponse
 $response = [
     "success" => true,
     "data" => $clubes,
@@ -13,4 +13,5 @@ $response = [
 
 echo json_encode($response);
 $conn->close();
+
 ?>
