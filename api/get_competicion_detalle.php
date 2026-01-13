@@ -8,7 +8,7 @@ if ($competicion_id <= 0) {
     exit();
 }
 
-// Función para verificar conexión
+//Función para verificar conexión
 function verificarConexion($conn) {
     if (!$conn || $conn->connect_error) {
         echo json_encode(["success" => false, "message" => "Error de conexión a la base de datos"]);
@@ -16,7 +16,7 @@ function verificarConexion($conn) {
     }
 }
 
-// 1. Información de la competición
+//Información de la competición
 verificarConexion($conn);
 $sql = "SELECT * FROM competiciones WHERE id = ?";
 $stmt = $conn->prepare($sql);
@@ -35,7 +35,7 @@ if (!$competicion) {
     exit();
 }
 
-// 2. Clasificación
+//Clasificación
 verificarConexion($conn);
 $sql_clasificacion = "SELECT clf.*, e.nombre as equipo_nombre, c.nombre as club_nombre
                       FROM clasificaciones clf
@@ -58,7 +58,7 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-// 3. Partidos (opcional)
+//Partidos
 verificarConexion($conn);
 $sql_partidos = "SELECT p.*,
                  el.nombre as equipo_local_nombre,
@@ -83,7 +83,7 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-// Enviar respuesta
+//Enviar respuesta
 echo json_encode([
     "success" => true,
     "data" => [
