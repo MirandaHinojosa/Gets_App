@@ -1,6 +1,6 @@
 <?php
 require_once 'api_config.php';
-
+//solo cambiamos el p.estado... lo demás es lo mismo.
 $sql = "SELECT p.*,
         el.nombre as equipo_local_nombre,
         ev.nombre as equipo_visitante_nombre,
