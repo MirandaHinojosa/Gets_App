@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 
 $competicion_id = $_GET['competicion_id'] ?? 0;
 
-// Validar parámetro
+//Validar parámetro
 if (!$competicion_id) {
     echo json_encode([
         'success' => false,
@@ -42,7 +42,6 @@ try {
         $clasificacion[] = $row;
     }
 
-    // Formato que espera tu app Kotlin
     echo json_encode([
         'success' => true,
         'data' => $clasificacion,
